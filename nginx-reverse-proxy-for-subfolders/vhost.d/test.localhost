@@ -1,0 +1,11 @@
+location /api {
+  proxy_pass http://site1:8080;
+}
+
+location /app2 {
+  proxy_pass http://site2;
+}
+
+location /app3 {
+  proxy_pass http://site3;
+}
