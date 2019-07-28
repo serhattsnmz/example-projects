@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+  nginx:  
+    image: jwilder/nginx-proxy
+    container_name : test_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./data/vhost.d:/etc/nginx/vhost.d:ro
+
+  site1:  
+    build: app/.
+    container_name: test_site1
+    environment:
+      VIRTUAL_HOST: site1.localhost
+
+  site2:
+    image: jwilder/whoami
+    container_name : test_site2
+    environment:
+      VIRTUAL_HOST: site2.localhost
+
+  portainer:
+    image: portainer/portainer:1.22.0
+    container_name : test_portainer
+    restart: always
+    environment:
+      VIRTUAL_HOST: portainer.localhost
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer-data:/data

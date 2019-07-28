@@ -1,0 +1,9 @@
+location /portainer/ {
+  if ($cookie_key != "key") { 
+    return 404; 
+  }
+  proxy_pass http://portainer:9000/;
+}
+location /portainer/api/websocket/ {
+  proxy_pass http://portainer:9000/api/websocket/;
+}
