@@ -1,0 +1,3 @@
+Flask
+flask-restful
+elastic-apm[flask]
